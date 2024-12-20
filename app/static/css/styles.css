@@ -1,0 +1,68 @@
+a.disabled {
+    pointer-events: none;   /* Deshabilita el clic en el enlace */
+    color: gray;            /* Cambia el color del texto para indicar que está deshabilitado */
+}
+
+
+select {
+    width: 20%; /* Ancho fijo */
+    padding: 5px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde para distinguirlo */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo claro */
+    font-size: 14px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+#amount:focus,
+select:focus {
+    outline: none; /* Quita el borde azul predeterminado */
+    border-color: #007bff; /* Borde azul al enfocarse */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Resalta el select */
+}
+
+
+#amount {
+    display: block;
+    width: 20%; /* Ancho fijo */
+    height: 5%;
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: #f9f9f9; /* Fondo claro */
+    font-size: 14px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.line {
+    display: flex; /* Usamos flexbox para alinear los elementos en línea */
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+}
+
+.line select,
+.line input {
+    margin-right: 10px; /* Espacio entre los elementos */
+}
+#validate_button,
+#calculate_button{
+    width: 5%;
+    background-color: #f9f9f9;
+}
+
+#validate_button:hover,
+#calculate_button:hover{
+    background-color: #007bff;
+}
+
+.feather_icon{
+    color:black;
+}
+
+.table-container {
+    width: 100%;          /* Ancho completo */     /* Ajusta la altura según necesites */
+    overflow: auto;       /* Añade barras de desplazamiento cuando sea necesario */
+    border: 1px solid #ddd;  /* Borde opcional para el contenedor */
+}

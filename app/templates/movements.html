@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Movements{% endblock %}
+
+{% block content %}
+<h1>MOVEMENTS</h1>
+<table class="table-container">
+    <thead>
+        <tr>
+            {% if crypto_entries %}
+                {% for column in crypto_entries[0].__table__.columns %}
+                    <th>{{ column.name.capitalize() }}</th>
+                {% endfor %}
+                <th>Per Unit</th>
+            {% else %}
+                <tr>
+                    <td colspan="7">SIN MOVIMIENTOS</td>
+                </tr>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if crypto_entries %}
+            {% for entry in crypto_entries %}
+                <tr>
+                    {% for column in entry.__table__.columns %}
+                        <td>{{ entry[column.name] }}</td>
+                    {% endfor %}
+                    <td>{{ entry["to_quantity"]|float / entry["from_quantity"]|float }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+    
+</table>
+{% endblock %}

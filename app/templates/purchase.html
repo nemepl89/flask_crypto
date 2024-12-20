@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Compra{% endblock %}
+
+{% block content %}
+<h1>PURCHASE</h1>
+    <form id="form_crypto" action="/purchase" method="post" onsubmit="return check_form()">
+        <div class="line">
+            <label for="from_crypto">From:</label>
+            <select id="from_crypto" name="from_crypto" onclick="hide_validate()">
+                {% if form_previous_values %}
+                    {% for coin in available_coins %}
+                    <option value="{{ coin.crypto_name }}"{% if form_previous_values.from_crypto==coin.crypto_name %} selected="selected" {% endif %}>{{ coin.crypto_name  }}</option>
+                    {% endfor %}
+                {% else %}
+                    {% for coin in available_coins %}
+                        <option value="{{ coin.crypto_name }}">{{ coin.crypto_name  }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <label for="to_crypto">To:</label>
+            <select id="to_crypto" name="to_crypto" onclick="hide_validate()">
+                {% if form_previous_values %}
+                    {% for coin in available_coins %}
+                    <option value="{{ coin.crypto_name }}"{% if form_previous_values.to_crypto==coin.crypto_name %} selected="selected" {% endif %}>{{ coin.crypto_name  }}</option>
+                    {% endfor %}
+                {% else %}
+                    {% for coin in available_coins %}
+                        <option value="{{ coin.crypto_name }}">{{ coin.crypto_name  }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+        <div class="line">
+            <label for="amount">Amount:</label>
+            <input name="quantity" step="0.0001" type="number" min="0" id="amount" class="amount_input" placeholder="Enter amount" required {% if form_previous_values %} value="{{form_previous_values['quantity']}}" {% endif %} onclick="hide_validate()">
+            <button id="calculate_button" title="Calcular el cambio de moneda" type="submit">
+                <i data-feather="tablet" class="feather_icon"></i>
+            </button>
+        </div>
+    </form>
+    <div class="line">
+        <h5>Current inversion</h5>
+    </div>
+    <div class="line">
+        <table class="table-container">
+            <thead>
+                <tr>
+                    {% for key in current_status.keys() %}
+                        <th>{{ key.capitalize() }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+
+                
+                    <tr>
+                        {% for key in current_status.keys() %}
+                            <td>{{ current_status[key] }}</td>
+                        {% endfor %}
+                    </tr>
+            </tbody>
+            
+        </table>
+    </div>
+    {% if rate %}
+        <div class="line">
+            <label>Se ha solicitado el cambio de {{form_previous_values["from_crypto"]}} a {{form_previous_values["to_crypto"]}} con una cantidad de {{form_previous_values["quantity"]}}:</label>
+            
+        </div>
+        <div class="line">
+            <label>Cantidad a convertir:</label>
+            
+                <h5>{{real_quantity}}</h5>
+        
+            
+            <label>Cantidad por unidad:</label>
+
+                <h5>{{rate}}</h5>
+
+            
+            
+
+            <button id="validate_button" title="Validar el cambio de moneda" onclick="validate_crypto_change()">
+                <i data-feather="check-circle" class="feather_icon"></i>
+            </button>
+
+        </div>
+    {% endif %}
+    
+{% endblock %}
+
+{% block extra_script %}
+    <script>
+        feather.replace();
+        var current_status = JSON.parse('{{ current_status | tojson | safe }}');
+        var rate = "{{rate}}";
+    </script>
+
+    <script src="{{ url_for('static', filename='js/purchase.js') }}"></script>
+{% endblock %}>

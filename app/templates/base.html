@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Flask App{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <header class="container" id="menu">
+        <nav>
+
+            <ul>
+                <li><strong>Crypto converter</strong></li>
+            </ul>
+
+            <ul>
+                <li><a href="{{ url_for('main.movements') }}" {% if request.endpoint == 'main.movements' %} class="disabled" {% endif %}>Home</a></li>
+                <li><a href="{{ url_for('main.purchase') }}" {% if request.endpoint == 'main.purchase' %} class="disabled" {% endif %}>Purchase</a></li>
+                <li><a href="{{ url_for('main.status') }}" {% if request.endpoint == 'main.status' %} class="disabled" {% endif %}>Status</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+
+    <main class="container">
+        {% block content %}
+
+        {% endblock %}
+    </main>
+    {% block extra_script %}
+
+    {% endblock %}
+    <footer>
+        <p>&copy; 2024 Final Flask project.</p>
+    </footer>
+</body>
+</html>
